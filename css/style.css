@@ -1,0 +1,10 @@
+.table{
+ border-collapse: collapse;
+ border: 1px solid rgb(151, 94, 94);
+
+}
+
+
+#tr{
+    color: rgba(189, 11, 144, 0.603);
+}

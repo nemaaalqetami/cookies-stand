@@ -1,194 +1,145 @@
 'use straict';
 
 
-let hours = ['6am','7am','8am','9am','10am','11am','12am','1pm','2pm','3pm','4pm','5pm','6pm','7pm'];
-let main = document.getElementById('demo');
+let hours = [' ','6am','7am','8am','9am','10am','11am','12am','1pm','2pm','3pm','4pm','5pm','6pm','7pm','Daily Location Total'];
+let totalAvgPeerHour = [0,0,0,0,0,0,0,0,0,0,0,0,0,0]; 
 
-
-
-
-
-
-
-
-let seattle ={
-  name :'Seattle',
-  min : 23,
-  max : 65,
-  avg : Math.floor(6.3),
-  randomCustomer :0,
- 
-
- getCustomerRandomly:function(){
-  let cust = this.randomCustomer;
- cust= rndomCus(this.min,this.max);
-
-   return cust; 
- },
-  
- getavg : function(){
-  
-   
-     return this.getCustomerRandomly() * this.avg; 
- }
-
-};
-
- 
-
- let tokyo ={
-  name :'Tokoy',
-  min : 3,
-  max : 24,
-  avg : Math.floor(1.2),
-  randomCustomer :0,
- 
- 
- getCustomerRandomly:function(){
-  let cust = tokyo.randomCustomer;
- cust= rndomCus(tokyo.min,tokyo.max);
-
-   return cust; 
- },
-  
- getavg : function(){
-  
-   
-  return this.getCustomerRandomly() * this.avg; 
-}
- };
-
-
- let dubai ={
-  name :'Dubai',
-  min : 11,
-  max : 38,
-  avg : Math.floor(3.7),
-  randomCustomer :0,
-
- getCustomerRandomly:function(){
-  let cust = dubai.randomCustomer;
- cust= rndomCus(dubai.min,dubai.max);
-
-   return cust; 
- },
-  
- getavg : function(){
-  
-   
-  return this.getCustomerRandomly() * this.avg; 
-}
-
- };
-
- let paris ={
-  name :'Paris',
-  min : 20,
-  max : 38,
-  avg : Math.floor(2.3),
-  randomCustomer :0,
- 
-
- getCustomerRandomly:function(){
-  let cust = paris.randomCustomer;
- cust= rndomCus(paris.min,paris.max);
-
-   return cust; 
- },
-  
- getavg : function(){
-  
-   
-  return this.getCustomerRandomly() * this.avg; 
-}
- };
-
-
- let lima ={
-   name :'Lima',
-  min : 2,
-  max : 16,
-  avg : Math.floor(4.6),
-  randomCustomer :0,
- 
- 
- getCustomerRandomly:function(){
-  let cust = lima.randomCustomer;
- cust= rndomCus(lima.min,lima.max);
-
-   return cust; 
- },
-  
- getavg : function(){
-  
-   
-  return this.getCustomerRandomly() * this.avg; 
-}
- };
+let table= document.getElementById('table');
 
 
 
 function rndomCus (min,max){
-    return Math.floor(Math.random() * (max - min +1) + min);
+  return Math.floor(Math.random() * (max - min +1) + min);
+}
+
+function getTime(){
+  let head = document.createElement('thead'); 
+table.appendChild(head) ;
+let th;
+for(let i=0 ;i<hours.length;i++){
+  th = document.createElement('th');
+  th.innerText = hours[i];
+  head.appendChild(th);
+ th.setAttribute("class","table");
+}
+
 }
 
 
-
-
-
-function gitOrder(cityName){
- let h3 =  document.createElement('h1');
-  h3.innerText= cityName;
- 
-  main.appendChild(h3);
-  let unorderList = document.createElement('ul');
-  main.appendChild(unorderList);
+getTime();
   
-  
-  let listItem ;
 
-   let peerAve;
-  let total = 0;
+
  
-  for(let i=0;i<14;i++)
-  {
+
+
+
+
+
+
+
+
+
+
+
+
+ function City(name,min,max,avg,randomCustomer){
+  this.name=name;
+  this.min=min;
+  this.max=max;
+  this.avg=avg;
+  this.randomCustomer = randomCustomer;
+
+
+ 
+
+}
+
+City.prototype.getCustomerRandomly=function(){
+  let cust = this.randomCustomer;
+ cust= rndomCus(this.min,this.max);
+
+   return cust; 
+ };
+  
+
+City.prototype.getavg = function(){
      
-      
-      
-     listItem = document.createElement('li');
-    
-    peerAve = seattle.getavg();
-           
-     listItem.innerText = hours[i] +" :  " + peerAve + " "+'Cookies'; 
-              total+=peerAve ;
-      
-   console.log(total);
-     unorderList.appendChild(listItem);
-    
-    
- 
-  
-    
-   } 
-  
-   let tot = document.createElement('li');
-   tot.innerText ='Total : '+ total + " "+ 'Cookies';
+  return  this.getCustomerRandomly()* this.avg  ;
+
+};
+
+let seattle = new City('Seattle',23,65,Math.floor(6.3),0);
+let tokyo = new City('Tokyo',3,24,Math.floor(1.2),0);
+let dubai = new City('Dubai',11,38,Math.floor(3.7),0);
+let paris = new City('Paris',30,38,Math.floor(2.3),0);
+let lima  = new City('Lima',2,16,Math.floor(4.6),0);
+
+
+render(seattle.name);
+
+
+
+render(tokyo.name);
+
+
+
+render(dubai.name);
+
+console.log(dubai.getavg());
+
+
+render(paris.name);
+
+
+render(lima.name);
+
+
+
+
+function render(cityName){
+
+  let tr =  document.createElement('tr');
+   tr.innerText= cityName;
+
+  tr.setAttribute("class","table");
+  tr.setAttribute("id","tr");
+   table.appendChild(tr);
+   table.setAttribute('class','table');
    
-  unorderList.appendChild(tot);
-
+   let listItem ;
+ 
+    let peerAve;
+   
+    
+   let total = 0;
   
-}
+   for(let i=0;i<hours.length-2;i++)
+   {
+
+       
+      listItem = document.createElement('td');
+       listItem.setAttribute("class","table")
+     peerAve= seattle.getavg();
+   
+            
+      listItem.innerText = peerAve + " "+'Cookies'; 
+            total+=peerAve ;
+         
+          
+   
+      tr.appendChild(listItem);
+     
+    } 
+    
+    let tot = document.createElement('td');
+    tot.innerText ='Total : '+ total + " "+ 'Cookies';
+    
+  tr.appendChild(tot);
+ 
 
 
 
-gitOrder(seattle.name);
-  gitOrder(tokyo.name);
- gitOrder(dubai.name);
-  gitOrder(paris.name);
-   gitOrder(lima.name);
-
-  
-
-  
-
+ }
+ 
  
