@@ -150,7 +150,7 @@ function gitOrder(cityName){
    let peerAve;
   let total = 0;
  
-  for(let i=0;i<14;i++)
+  for(let i=0;i<hours.length;i++)
   {
      
       
