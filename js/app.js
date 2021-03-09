@@ -1,13 +1,15 @@
 'use straict';
 
 
-let hours = [' ','6am','7am','8am','9am','10am','11am','12am','1pm','2pm','3pm','4pm','5pm','6pm','7pm','Daily Location Total'];
+let hours = [' ','6:am','7:am','8:am','9:am','10:am','11:am','12:am','1:pm','2"pm','3:pm','4:pm','5:pm','6:pm','7:pm','Daily Location Total'];
 let totalAvgPeerHour = [0,0,0,0,0,0,0,0,0,0,0,0,0,0]; 
 
 let table= document.getElementById('table');
-
-
-
+let peerAve=[];
+let tok =[];
+let dub =[];
+let par=[];
+let lim =[];
 function rndomCus (min,max){
   return Math.floor(Math.random() * (max - min +1) + min);
 }
@@ -76,28 +78,76 @@ let paris = new City('Paris',30,38,Math.floor(2.3),0);
 let lima  = new City('Lima',2,16,Math.floor(4.6),0);
 
 
-render(seattle.name);
+renderSeattle(seattle.name);
 
 
 
-render(tokyo.name);
+renderTokyo(tokyo.name);
 
 
 
-render(dubai.name);
-
-console.log(dubai.getavg());
-
-
-render(paris.name);
-
-
-render(lima.name);
+ renderDubai(dubai.name);
 
 
 
 
-function render(cityName){
+ renderParis(paris.name);
+
+
+ renderLima(lima.name);
+renderTotal('Total');
+
+
+
+function renderSeattle(cityName){
+
+  let tr =  document.createElement('tr');
+  let tr2 =document.createElement('tr');
+   tr.innerText= cityName;
+
+  tr.setAttribute("class","table");
+  tr.setAttribute("id","tr");
+   table.appendChild(tr);
+   table.appendChild(tr2);
+   table.setAttribute('class','table');
+   
+   let listItem ;
+ 
+   
+  
+    
+   let total = 0;
+  
+   for(let i=0;i<hours.length-2;i++)
+   {
+
+       
+      listItem = document.createElement('td');
+       listItem.setAttribute("class","table")
+     peerAve[i]= seattle.getavg();
+     
+   
+            
+      listItem.innerText = peerAve[i] + " "+'Cookies'; 
+            total+=peerAve[i] ;
+      totalAvgPeerHour[i]=peerAve[i]+tok[i]+dub[i]+par[i]+lim[i];
+         
+      tr.appendChild(listItem);
+       
+    } 
+    
+    let tot = document.createElement('td');
+    tot.innerText ='Total : '+ total + " "+ 'Cookies';
+    
+  tr.appendChild(tot);
+
+
+
+ }
+ 
+ 
+
+ function renderTokyo(cityName){
 
   let tr =  document.createElement('tr');
    tr.innerText= cityName;
@@ -109,8 +159,7 @@ function render(cityName){
    
    let listItem ;
  
-    let peerAve;
-   
+  
     
    let total = 0;
   
@@ -120,12 +169,13 @@ function render(cityName){
        
       listItem = document.createElement('td');
        listItem.setAttribute("class","table")
-     peerAve= seattle.getavg();
+    
+     tok[i]=tokyo.getavg()
    
             
-      listItem.innerText = peerAve + " "+'Cookies'; 
-            total+=peerAve ;
-         
+      listItem.innerText =tok[i] + " "+'Cookies'; 
+            total+=tok[i] ;
+      
           
    
       tr.appendChild(listItem);
@@ -141,5 +191,185 @@ function render(cityName){
 
 
  }
+ function renderDubai(cityName){
+
+  let tr =  document.createElement('tr');
+   tr.innerText= cityName;
+
+  tr.setAttribute("class","table");
+  tr.setAttribute("id","tr");
+   table.appendChild(tr);
+   table.setAttribute('class','table');
+   
+   let listItem ;
  
+  
+
+    
+   let total = 0;
+  
+   for(let i=0;i<hours.length-2;i++)
+   {
+
+       
+      listItem = document.createElement('td');
+       listItem.setAttribute("class","table")
+    
+     dub[i]=dubai.getavg()
+   
+            
+      listItem.innerText =dub[i] + " "+'Cookies'; 
+            total+=dub[i] ;
+      
+          
+   
+      tr.appendChild(listItem);
+     
+    } 
+    
+    let tot = document.createElement('td');
+    tot.innerText ='Total : '+ total + " "+ 'Cookies';
+    
+  tr.appendChild(tot);
  
+
+
+
+ }
+
+ function renderParis(cityName){
+
+  let tr =  document.createElement('tr');
+   tr.innerText= cityName;
+
+  tr.setAttribute("class","table");
+  tr.setAttribute("id","tr");
+   table.appendChild(tr);
+   table.setAttribute('class','table');
+   
+   let listItem ;
+ 
+  
+   
+   let total = 0;
+  
+   for(let i=0;i<hours.length-2;i++)
+   {
+
+       
+      listItem = document.createElement('td');
+       listItem.setAttribute("class","table")
+    
+     par[i]=paris.getavg()
+   
+            
+      listItem.innerText =par[i] + " "+'Cookies'; 
+            total+=par[i] ;
+      
+          
+   
+      tr.appendChild(listItem);
+     
+    } 
+    
+    let tot = document.createElement('td');
+    tot.innerText ='Total : '+ total + " "+ 'Cookies';
+    
+  tr.appendChild(tot);
+ 
+
+
+
+ }
+
+
+ function renderLima(cityName){
+
+  let tr =  document.createElement('tr');
+   tr.innerText= cityName;
+
+  tr.setAttribute("class","table");
+  tr.setAttribute("id","tr");
+   table.appendChild(tr);
+   table.setAttribute('class','table');
+   
+   let listItem ;
+ 
+  
+    
+   let total = 0;
+  
+   for(let i=0;i<hours.length-2;i++)
+   {
+
+       
+      listItem = document.createElement('td');
+       listItem.setAttribute("class","table")
+    
+     lim[i]=lima.getavg()
+   
+            
+      listItem.innerText =lim[i] + " "+'Cookies'; 
+            total+=lim[i] ;
+      
+          
+   
+      tr.appendChild(listItem);
+     
+    } 
+    
+    let tot = document.createElement('td');
+    tot.innerText ='Total : '+ total + " "+ 'Cookies';
+    
+  tr.appendChild(tot);
+ 
+
+
+
+ }
+
+ 
+function renderTotal(cityName){
+
+  let tr =  document.createElement('tr');
+  let tr2 =document.createElement('tr');
+   tr.innerText= cityName;
+
+  tr.setAttribute("class","table");
+  tr.setAttribute("id","tr");
+   table.appendChild(tr);
+   table.appendChild(tr2);
+   table.setAttribute('class','table');
+   
+   let listItem ;
+ 
+   
+  
+    
+   let total = 0;
+  
+   for(let i=0;i<hours.length-2;i++)
+   {
+
+       
+      listItem = document.createElement('td');
+       listItem.setAttribute("class","table")
+     
+     
+   
+      totalAvgPeerHour[i]=peerAve[i]+tok[i]+dub[i]+par[i]+lim[i];
+         console.log(peerAve[i]);
+         listItem.innerText=totalAvgPeerHour[i] + " " + "Cookies";
+         total+=totalAvgPeerHour[i]
+      tr.appendChild(listItem);
+       
+    } 
+    
+    let tot = document.createElement('td');
+    tot.innerText ='Total : '+ total + " "+ 'Cookies';
+    
+  tr.appendChild(tot);
+
+
+
+ }
