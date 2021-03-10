@@ -1,15 +1,16 @@
 'use straict';
 
 
-let hours = [' ','6:am','7:am','8:am','9:am','10:am','11:am','12:am','1:pm','2"pm','3:pm','4:pm','5:pm','6:pm','7:pm','Daily Location Total'];
+let hours = ['Locations ','6:am','7:am','8:am','9:am','10:am','11:am','12:am','1:pm','2:pm','3:pm','4:pm','5:pm','6:pm','7:pm','Daily Location Total'];
 let totalAvgPeerHour = [0,0,0,0,0,0,0,0,0,0,0,0,0,0]; 
-
+let form = document.getElementById('form');
 let table= document.getElementById('table');
 let peerAve=[];
 let tok =[];
 let dub =[];
 let par=[];
 let lim =[];
+let newLoc = [];
 function rndomCus (min,max){
   return Math.floor(Math.random() * (max - min +1) + min);
 }
@@ -45,15 +46,12 @@ getTime();
 
 
 
- function City(name,min,max,avg,randomCustomer){
+ function City(name,min,max,avg){
   this.name=name;
   this.min=min;
   this.max=max;
   this.avg=avg;
-  this.randomCustomer = randomCustomer;
-
-
- 
+  this.randomCustomer = 0;
 
 }
 
@@ -71,11 +69,11 @@ City.prototype.getavg = function(){
 
 };
 
-let seattle = new City('Seattle',23,65,Math.floor(6.3),0);
-let tokyo = new City('Tokyo',3,24,Math.floor(1.2),0);
-let dubai = new City('Dubai',11,38,Math.floor(3.7),0);
-let paris = new City('Paris',30,38,Math.floor(2.3),0);
-let lima  = new City('Lima',2,16,Math.floor(4.6),0);
+let seattle = new City('Seattle',23,65,Math.floor(6.3));
+let tokyo = new City('Tokyo',3,24,Math.floor(1.2));
+let dubai = new City('Dubai',11,38,Math.floor(3.7));
+let paris = new City('Paris',30,38,Math.floor(2.3));
+let lima  = new City('Lima',2,16,Math.floor(4.6));
 
 
 renderSeattle(seattle.name);
@@ -95,7 +93,7 @@ renderTokyo(tokyo.name);
 
 
  renderLima(lima.name);
-renderTotal('Total');
+
 
 
 
@@ -327,7 +325,7 @@ function renderSeattle(cityName){
 
 
  }
-
+ 
  
 function renderTotal(cityName){
 
@@ -357,7 +355,7 @@ function renderTotal(cityName){
      
      
    
-      totalAvgPeerHour[i]=peerAve[i]+tok[i]+dub[i]+par[i]+lim[i];
+      totalAvgPeerHour[i]=peerAve[i]+tok[i]+dub[i]+par[i]+lim[i]+newLoc[i];
          console.log(peerAve[i]);
          listItem.innerText=totalAvgPeerHour[i] + " " + "Cookies";
          total+=totalAvgPeerHour[i]
@@ -373,3 +371,57 @@ function renderTotal(cityName){
 
 
  }
+
+
+form.addEventListener('submit',function(event){
+
+   event.preventDefault();
+   
+ let loc= event.target.location.value; 
+ let min= event.target.min.value; 
+ let max= event.target.max.value; 
+ let avg= event.target.avg.value; 
+ 
+ 
+ console.log(loc+min+max+avg);
+ 
+ let tr =  document.createElement('tr');
+   tr.innerText= loc;
+
+  tr.setAttribute("class","table");
+  tr.setAttribute("id","tr");
+   table.appendChild(tr);
+   table.setAttribute('class','table');
+   
+   let listItem ;
+ 
+  
+    
+   let total = 0;
+   for(let i=0;i<hours.length-2;i++)
+   {
+
+       
+      listItem = document.createElement('td');
+       listItem.setAttribute("class","table")
+    
+     newLoc[i]=Math.ceil( rndomCus(min,max) * avg);
+   
+            
+      listItem.innerText =newLoc[i] + " "+'Cookies'; 
+            total+=newLoc[i] ;
+      
+          
+   
+      tr.appendChild(listItem);
+     
+    } 
+    
+    let tot = document.createElement('td');
+    tot.innerText ='Total : '+ total + " "+ 'Cookies';
+    
+  tr.appendChild(tot);
+ 
+
+ renderTotal('Total');
+ })

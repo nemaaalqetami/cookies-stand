@@ -8,3 +8,19 @@
 #tr{
     color: rgba(189, 11, 144, 0.603);
 }
+
+fieldset{
+    border: 1px solid rgb(151, 94, 94);
+}
+legend{
+    color: rgba(189, 11, 144, 0.603); 
+}
+form{
+    color: rgba(189, 11, 144, 0.603);
+   
+}
+
+input{
+    color: rgba(189, 11, 144, 0.603); 
+   
+}
