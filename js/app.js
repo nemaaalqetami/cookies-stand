@@ -5,12 +5,8 @@ let hours = ['Locations ','6:am','7:am','8:am','9:am','10:am','11:am','12:am','1
 let totalAvgPeerHour = [0,0,0,0,0,0,0,0,0,0,0,0,0,0]; 
 let form = document.getElementById('form');
 let table= document.getElementById('table');
-let peerAve=[];
-let tok =[];
-let dub =[];
-let par=[];
-let lim =[];
-let newLoc = [];
+
+let newLoc = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 function rndomCus (min,max){
   return Math.floor(Math.random() * (max - min +1) + min);
 }
@@ -52,6 +48,7 @@ getTime();
   this.max=max;
   this.avg=avg;
   this.randomCustomer = 0;
+  this.cookiesPerHour=[];
 
 }
 
@@ -65,53 +62,54 @@ City.prototype.getCustomerRandomly=function(){
 
 City.prototype.getavg = function(){
      
-  return  this.getCustomerRandomly()* this.avg  ;
+  return  Math.floor(this.getCustomerRandomly()* this.avg)  ;
 
 };
 
-let seattle = new City('Seattle',23,65,Math.floor(6.3));
-let tokyo = new City('Tokyo',3,24,Math.floor(1.2));
-let dubai = new City('Dubai',11,38,Math.floor(3.7));
-let paris = new City('Paris',30,38,Math.floor(2.3));
-let lima  = new City('Lima',2,16,Math.floor(4.6));
+let seattle = new City('Seattle',23,65,6.3);
+let tokyo = new City('Tokyo',3,24,1.2);
+let dubai = new City('Dubai',11,38,3.7);
+let paris = new City('Paris',30,38,2.3);
+let lima  = new City('Lima',2,16,4.6);
+
+let cities = [seattle,tokyo,dubai,paris,lima];
 
 
-renderSeattle(seattle.name);
-
-
-
-renderTokyo(tokyo.name);
-
-
-
- renderDubai(dubai.name);
+renderSeattle();
 
 
 
+renderTokyo();
 
- renderParis(paris.name);
 
 
- renderLima(lima.name);
+ renderDubai();
 
 
 
 
-function renderSeattle(cityName){
+ renderParis();
+
+
+ renderLima();
+ renderTotal();
+
+form.addEventListener('submit',renderForm);
+
+
+function renderSeattle(){
 
   let tr =  document.createElement('tr');
-  let tr2 =document.createElement('tr');
-   tr.innerText= cityName;
-
+  let td = document.createElement('td');
+   td.innerText= cities[0].name;
+tr.appendChild(td);
   tr.setAttribute("class","table");
   tr.setAttribute("id","tr");
    table.appendChild(tr);
-   table.appendChild(tr2);
    table.setAttribute('class','table');
    
    let listItem ;
  
-   
   
     
    let total = 0;
@@ -119,36 +117,179 @@ function renderSeattle(cityName){
    for(let i=0;i<hours.length-2;i++)
    {
 
-       
+       let cookiesNum = cities[0].getavg();
       listItem = document.createElement('td');
        listItem.setAttribute("class","table")
-     peerAve[i]= seattle.getavg();
-     
+    
+     cities[0].cookiesPerHour[i]=cookiesNum;
    
             
-      listItem.innerText = peerAve[i] + " "+'Cookies'; 
-            total+=peerAve[i] ;
-      totalAvgPeerHour[i]=peerAve[i]+tok[i]+dub[i]+par[i]+lim[i];
+      listItem.innerText =cookiesNum + " "+'Cookies'; 
+            total+=cookiesNum ;
+  
+           
+   
+      tr.appendChild(listItem);
+     
+    } 
+    
+    let tot = document.createElement('td');
+    tot.innerText ='Total : '+ total + " "+ 'Cookies';
+    
+  tr.appendChild(tot);
+ 
+
+
+
+ }
+
+ function renderTokyo(){
+
+  let tr =  document.createElement('tr');
+  let td = document.createElement('td');
+   td.innerText= cities[1].name;
+tr.appendChild(td);
+  tr.setAttribute("class","table");
+  tr.setAttribute("id","tr");
+   table.appendChild(tr);
+   table.setAttribute('class','table');
+   
+   let listItem ;
+ 
+  
+    
+   let total = 0;
+  
+   for(let i=0;i<hours.length-2;i++)
+   {
+
+       let cookiesNum = cities[1].getavg();
+      listItem = document.createElement('td');
+       listItem.setAttribute("class","table")
+    
+     cities[1].cookiesPerHour[i]=cookiesNum;
+   
+            
+      listItem.innerText =cookiesNum + " "+'Cookies'; 
+            total+=cookiesNum ;
+  
+           
+   
+      tr.appendChild(listItem);
+     
+    } 
+    
+    let tot = document.createElement('td');
+    tot.innerText ='Total : '+ total + " "+ 'Cookies';
+    
+  tr.appendChild(tot);
+ 
+
+
+
+ }
+ function renderDubai(){
+
+  let tr =  document.createElement('tr');
+   let td = document.createElement('td');
+   td.innerText = cities[2].name;
+   tr.appendChild(td);
+
+  tr.setAttribute("class","table");
+  tr.setAttribute("id","tr");
+   table.appendChild(tr);
+   table.setAttribute('class','table');
+   
+   let listItem ;
+ 
+  
+
+    
+   let total = 0;
+  
+   for(let i=0;i<hours.length-2;i++)
+   {
+
+    let cookiesNum = cities[2].getavg();
+    listItem = document.createElement('td');
+     listItem.setAttribute("class","table")
+  
+   cities[2].cookiesPerHour[i]=cookiesNum;
+ 
+          
+    listItem.innerText =cookiesNum + " "+'Cookies'; 
+          total+=cookiesNum ;
+
          
-      tr.appendChild(listItem);
-       
+ 
+    tr.appendChild(listItem);
+   
     } 
     
     let tot = document.createElement('td');
     tot.innerText ='Total : '+ total + " "+ 'Cookies';
     
   tr.appendChild(tot);
+ 
 
 
 
  }
- 
- 
 
- function renderTokyo(cityName){
+ function renderParis(){
 
   let tr =  document.createElement('tr');
-   tr.innerText= cityName;
+  let td = document.createElement('td');
+  td.innerText= cities[3].name;
+  tr.appendChild(td);
+  tr.setAttribute("class","table");
+  tr.setAttribute("id","tr");
+   table.appendChild(tr);
+   table.setAttribute('class','table');
+   
+   let listItem ;
+ 
+  
+   
+   let total = 0;
+  
+   for(let i=0;i<hours.length-2;i++)
+   {
+    let cookiesNum = cities[3].getavg();
+    listItem = document.createElement('td');
+     listItem.setAttribute("class","table")
+  
+   cities[3].cookiesPerHour[i]=cookiesNum;
+ 
+          
+    listItem.innerText =cookiesNum + " "+'Cookies'; 
+          total+=cookiesNum ;
+
+         
+ 
+    tr.appendChild(listItem);
+   
+    } 
+    
+    let tot = document.createElement('td');
+    tot.innerText ='Total : '+ total + " "+ 'Cookies';
+    
+  tr.appendChild(tot);
+ 
+
+
+
+ }
+
+
+ function renderLima(){
+ 
+ 
+  let tr =  document.createElement('tr');
+  let td = document.createElement('td');
+ 
+   td.innerText= cities[4].name;
+   tr.appendChild(td);
 
   tr.setAttribute("class","table");
   tr.setAttribute("id","tr");
@@ -165,19 +306,20 @@ function renderSeattle(cityName){
    {
 
        
-      listItem = document.createElement('td');
-       listItem.setAttribute("class","table")
-    
-     tok[i]=tokyo.getavg()
-   
-            
-      listItem.innerText =tok[i] + " "+'Cookies'; 
-            total+=tok[i] ;
-      
+    let cookiesNum = cities[4].getavg();
+    listItem = document.createElement('td');
+     listItem.setAttribute("class","table")
+  
+   cities[4].cookiesPerHour[i]=cookiesNum;
+ 
           
+    listItem.innerText =cookiesNum + " "+'Cookies'; 
+          total+=cookiesNum ;
+
+         
+ 
+    tr.appendChild(listItem);
    
-      tr.appendChild(listItem);
-     
     } 
     
     let tot = document.createElement('td');
@@ -186,60 +328,85 @@ function renderSeattle(cityName){
   tr.appendChild(tot);
  
 
+ 
 
 
  }
- function renderDubai(cityName){
+ 
+ 
+function renderTotal(){
 
   let tr =  document.createElement('tr');
-   tr.innerText= cityName;
+
+  let totalTH = document.createElement('th');
+  totalTH.innerText = 'Total';
+  tr.appendChild(totalTH);
 
   tr.setAttribute("class","table");
-  tr.setAttribute("id","tr");
-   table.appendChild(tr);
-   table.setAttribute('class','table');
+    tr.setAttribute("id","tr");
+  
+
+ 
    
    let listItem ;
- 
+   
+   let total = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
   
-
     
-   let total = 0;
+   let totalOfTotals = 0;
   
    for(let i=0;i<hours.length-2;i++)
+  
    {
-
-       
-      listItem = document.createElement('td');
-       listItem.setAttribute("class","table")
-    
-     dub[i]=dubai.getavg()
-   
-            
-      listItem.innerText =dub[i] + " "+'Cookies'; 
-            total+=dub[i] ;
+     for(let j = 0;j<cities.length;j++){
       
-          
-   
-      tr.appendChild(listItem);
-     
+      listItem = document.createElement('td');
+       total[i] += cities[j].cookiesPerHour[i];
+       totalOfTotals += cities[j].cookiesPerHour[i];
+       listItem.innerText = total[i] + ' cookies';
+    
+    
+     }
+     tr.appendChild(listItem);
+    listItem.setAttribute("class","table")
+  
     } 
     
-    let tot = document.createElement('td');
-    tot.innerText ='Total : '+ total + " "+ 'Cookies';
+  
+    
+    let tot = document.createElement('th');
+    tot.innerText ='Total : '+ totalOfTotals + " "+ 'Cookies';
     
   tr.appendChild(tot);
- 
 
-
+  table.appendChild(tr);
 
  }
+ function renderForm(event){
 
- function renderParis(cityName){
+  event.preventDefault();
+  table.innerHTML = "";
+  
 
-  let tr =  document.createElement('tr');
-   tr.innerText= cityName;
+  getTime();
+renderSeattle();
+renderTokyo();
+renderDubai();
+renderParis();
+renderLima();
 
+let loc= event.target.location.value; 
+let min= parseInt(event.target.min.value); 
+let max= parseInt(event.target.max.value); 
+let avg= parseInt(event.target.avg.value); 
+
+let newCity = new City (loc,min,max,avg);
+cities.push(newCity);
+
+let tr =  document.createElement('tr');
+  let td = document.createElement('td');
+   td.innerText= newCity.name;
+tr.appendChild(td);
   tr.setAttribute("class","table");
   tr.setAttribute("id","tr");
    table.appendChild(tr);
@@ -248,180 +415,46 @@ function renderSeattle(cityName){
    let listItem ;
  
   
-   
+    
    let total = 0;
   
    for(let i=0;i<hours.length-2;i++)
    {
 
-       
+       let cookiesNum = newCity.getavg();
       listItem = document.createElement('td');
        listItem.setAttribute("class","table")
     
-     par[i]=paris.getavg()
+     newCity.cookiesPerHour[i]=cookiesNum;
    
             
-      listItem.innerText =par[i] + " "+'Cookies'; 
-            total+=par[i] ;
+      listItem.innerText =cookiesNum + " "+'Cookies'; 
+            total+=cookiesNum ;
+  
+           
+   
+      tr.appendChild(listItem);
+     
+    } 
+    
+    let tot = document.createElement('td');
+    tot.innerText ='Total : '+ total + " "+ 'Cookies';
+    
+  tr.appendChild(tot);
+ 
+
+
+
+ 
       
-          
-   
-      tr.appendChild(listItem);
-     
-    } 
-    
-    let tot = document.createElement('td');
-    tot.innerText ='Total : '+ total + " "+ 'Cookies';
-    
-  tr.appendChild(tot);
  
 
 
+renderTotal();
 
- }
+}
 
-
- function renderLima(cityName){
-
-  let tr =  document.createElement('tr');
-   tr.innerText= cityName;
-
-  tr.setAttribute("class","table");
-  tr.setAttribute("id","tr");
-   table.appendChild(tr);
-   table.setAttribute('class','table');
-   
-   let listItem ;
- 
   
-    
-   let total = 0;
-  
-   for(let i=0;i<hours.length-2;i++)
-   {
 
-       
-      listItem = document.createElement('td');
-       listItem.setAttribute("class","table")
-    
-     lim[i]=lima.getavg()
-   
-            
-      listItem.innerText =lim[i] + " "+'Cookies'; 
-            total+=lim[i] ;
-      
-          
-   
-      tr.appendChild(listItem);
-     
-    } 
-    
-    let tot = document.createElement('td');
-    tot.innerText ='Total : '+ total + " "+ 'Cookies';
-    
-  tr.appendChild(tot);
- 
-
-
-
- }
  
  
-function renderTotal(cityName){
-
-  let tr =  document.createElement('tr');
-  let tr2 =document.createElement('tr');
-   tr.innerText= cityName;
-
-  tr.setAttribute("class","table");
-  tr.setAttribute("id","tr");
-   table.appendChild(tr);
-   table.appendChild(tr2);
-   table.setAttribute('class','table');
-   
-   let listItem ;
- 
-   
-  
-    
-   let total = 0;
-  
-   for(let i=0;i<hours.length-2;i++)
-   {
-
-       
-      listItem = document.createElement('td');
-       listItem.setAttribute("class","table")
-     
-     
-   
-      totalAvgPeerHour[i]=peerAve[i]+tok[i]+dub[i]+par[i]+lim[i]+newLoc[i];
-         console.log(peerAve[i]);
-         listItem.innerText=totalAvgPeerHour[i] + " " + "Cookies";
-         total+=totalAvgPeerHour[i]
-      tr.appendChild(listItem);
-       
-    } 
-    
-    let tot = document.createElement('td');
-    tot.innerText ='Total : '+ total + " "+ 'Cookies';
-    
-  tr.appendChild(tot);
-
-
-
- }
-
-
-form.addEventListener('submit',function(event){
-
-   event.preventDefault();
-   
- let loc= event.target.location.value; 
- let min= event.target.min.value; 
- let max= event.target.max.value; 
- let avg= event.target.avg.value; 
- 
- 
- console.log(loc+min+max+avg);
- 
- let tr =  document.createElement('tr');
-   tr.innerText= loc;
-
-  tr.setAttribute("class","table");
-  tr.setAttribute("id","tr");
-   table.appendChild(tr);
-   table.setAttribute('class','table');
-   
-   let listItem ;
- 
-  
-    
-   let total = 0;
-   for(let i=0;i<hours.length-2;i++)
-   {
-
-       
-      listItem = document.createElement('td');
-       listItem.setAttribute("class","table")
-    
-     newLoc[i]=Math.ceil( rndomCus(min,max) * avg);
-   
-            
-      listItem.innerText =newLoc[i] + " "+'Cookies'; 
-            total+=newLoc[i] ;
-      
-          
-   
-      tr.appendChild(listItem);
-     
-    } 
-    
-    let tot = document.createElement('td');
-    tot.innerText ='Total : '+ total + " "+ 'Cookies';
-    
-  tr.appendChild(tot);
- 
-
- renderTotal('Total');
- })
