@@ -385,21 +385,16 @@ function renderTotal(){
  function renderForm(event){
 
   event.preventDefault();
-  table.innerHTML = "";
+ 
   
 
-  getTime();
-renderSeattle();
-renderTokyo();
-renderDubai();
-renderParis();
-renderLima();
+ 
 
 let loc= event.target.location.value; 
 let min= parseInt(event.target.min.value); 
 let max= parseInt(event.target.max.value); 
 let avg= parseInt(event.target.avg.value); 
-
+ table.removeChild(table.lastElementChild);
 let newCity = new City (loc,min,max,avg);
 cities.push(newCity);
 
